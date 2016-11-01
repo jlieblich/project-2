@@ -1,6 +1,7 @@
 package com.jonathanlieblich.somesortofcommerceyousay;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -49,5 +50,17 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP IF TABLE EXISTS "+PRODUCT_TABLE);
         onCreate(sqLiteDatabase);
+    }
+
+    //Query database for products matching a specific name
+    public void searchByName(String name) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(PRODUCT_TABLE,
+                null,
+                COL_NAME,
+                new String[]{name},
+                null,
+                null,
+                null);
     }
 }
