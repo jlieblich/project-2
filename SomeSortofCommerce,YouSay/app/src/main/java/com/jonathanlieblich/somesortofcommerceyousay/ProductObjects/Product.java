@@ -5,7 +5,7 @@ package com.jonathanlieblich.somesortofcommerceyousay.ProductObjects;
  */
 
 public class Product {
-    private String mName, mDescription;
+    private String mName, mDescription, mType;
     private double mPrice;
 
     public Product(String name, String description, double price) {
@@ -28,5 +28,25 @@ public class Product {
 
     public double getPrice() {
         return mPrice;
+    }
+
+    public String getType() {
+        return mType;
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
+
+    public void setDescription(String desc) {
+        mDescription = desc;
+    }
+
+    public void setPrice(double price) {
+        mPrice = price;
+    }
+
+    public void setType(String type) {
+        mType = type;
     }
 }
