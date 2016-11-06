@@ -7,10 +7,18 @@ package com.jonathanlieblich.somesortofcommerceyousay.ProductObjects;
 public class Product {
     private String mName, mDescription, mType;
     private double mPrice;
+    private int mQuantity;
 
     public Product(String name, String description, double price) {
         mName = name;
         mDescription = description;
+        mPrice = price;
+    }
+
+    //Product constructor while in shopping cart
+    public Product(String name, int quantity, double price) {
+        mName = name;
+        mQuantity = quantity;
         mPrice = price;
     }
 
