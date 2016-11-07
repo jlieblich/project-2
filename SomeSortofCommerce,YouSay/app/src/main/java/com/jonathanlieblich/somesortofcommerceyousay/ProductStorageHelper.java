@@ -96,6 +96,28 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
         return productList;
     }
 
+    //Return product based on ID
+    public Product productById(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(PRODUCT_TABLE,
+                null,
+                COL_ID,
+                new String[]{""+id},
+                null,
+                null,
+                null);
+        if(cursor.moveToFirst()) {
+            Product result = new Product();
+            result.setName(cursor.getString(cursor.getColumnIndex(COL_NAME)));
+            result.setPrice(Double.parseDouble(cursor.getString(cursor.getColumnIndex(COL_PRICE))));
+            result.setDescription(cursor.getString(cursor.getColumnIndex(COL_DESCRIPTION)));
+            cursor.close();
+            return result;
+        }
+        cursor.close();
+        return null;
+    }
+
     //Return a list of all items in cart, each item represented by a String
     //Format - name+" "+quantity
     public List<Product> cartItems() {
@@ -186,5 +208,13 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return result;
+    }
+
+    //Remove all items from cart, return number of items "purchased"
+    public int checkoutCart() {
+        SQLiteDatabase db = getWritableDatabase();
+        int deleted = db.delete(CART_TABLE, "1", null);
+        db.close();
+        return deleted;
     }
 }

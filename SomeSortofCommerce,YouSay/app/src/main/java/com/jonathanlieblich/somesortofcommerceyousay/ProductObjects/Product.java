@@ -7,7 +7,7 @@ package com.jonathanlieblich.somesortofcommerceyousay.ProductObjects;
 public class Product {
     private String mName, mDescription, mType;
     private double mPrice;
-    private int mQuantity;
+    private int mQuantity, mId;
 
     public Product(String name, String description, double price) {
         mName = name;
@@ -56,5 +56,9 @@ public class Product {
 
     public void setType(String type) {
         mType = type;
+    }
+
+    public int getId() {
+        return mId;
     }
 }

@@ -8,6 +8,7 @@
     tools:context="com.jonathanlieblich.somesortofcommerceyousay.ShoppingCartActivity">
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/checkout_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
