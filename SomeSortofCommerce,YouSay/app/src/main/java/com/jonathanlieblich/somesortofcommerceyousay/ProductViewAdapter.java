@@ -1,5 +1,7 @@
 package com.jonathanlieblich.somesortofcommerceyousay;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +16,7 @@ import java.util.List;
  */
 
 public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewHolder> {
-    List<Product> mProductList;
+    private List<Product> mProductList;
 
     public ProductViewAdapter(List<Product> products) {
         mProductList = products;
@@ -27,23 +29,21 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ProductViewHolder holder, int position) {
+    public void onBindViewHolder(final ProductViewHolder holder, final int position) {
         holder.mName.setText(mProductList.get(position).getName());
-        holder.mPrice.setText(Double.toString(mProductList.get(position).getPrice()));
+        holder.mPrice.setText(mProductList.get(position).getPrice());
 
         View.OnClickListener onClick = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch(view.getId()) {
                     case R.id.product_thumbnail:
-                        //View picture or just show the same page as three below
-                        break;
                     case R.id.product_name:
                     case R.id.product_price:
                     case R.id.single_product_item:
-                        //Open detail fragment
-                        break;
-                    default:
+                        Intent intent = new Intent(view.getContext(), ItemDetailActivity.class);
+                        intent.putExtra("ID", position+1);
+                        holder.mProductItem.getContext().startActivity(intent);
                         break;
                 }
             }

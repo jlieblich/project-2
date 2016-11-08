@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
@@ -17,11 +19,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jonathanlieblich.somesortofcommerceyousay.ProductObjects.Product;
+import com.jonathanlieblich.somesortofcommerceyousay.Setup.DBAssetHelper;
 
 import java.util.List;
 
 //Main activity, display list of all products
 public class ProductViewActivity extends AppCompatActivity {
+    private RecyclerView mainRecycler;
+    private ProductViewAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,16 @@ public class ProductViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        DBAssetHelper dbSetup = new DBAssetHelper(ProductViewActivity.this);
+        dbSetup.getReadableDatabase();
+
+        mAdapter = new ProductViewAdapter(ProductStorageHelper
+                .getInstance(getApplicationContext()).getProductList());
+        mainRecycler = (RecyclerView)findViewById(R.id.product_recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mainRecycler.setLayoutManager(layoutManager);
+        mainRecycler.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
 
@@ -68,7 +83,10 @@ public class ProductViewActivity extends AppCompatActivity {
         if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             List<Product> namesFound = ProductStorageHelper.getInstance(this).searchByName(query);
-            List<Product> byCategory = ProductStorageHelper.getInstance(this).searchCategory(query);
+            mainRecycler.setAdapter(new ProductViewAdapter(namesFound));
+            mAdapter.notifyDataSetChanged();
+//            List<Product> byCategory = ProductStorageHelper.getInstance(this).searchCategory(query);
+
         }
     }
 }

@@ -9,31 +9,40 @@
     <ImageView
         android:id="@+id/item_picture"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="144dp" />
 
     <TextView
         android:id="@+id/item_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_picture"/>
 
     <TextView
         android:id="@+id/item_description"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_name"/>
 
     <TextView
         android:id="@+id/item_price"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_picture"
+        android:layout_alignParentRight="true"/>
 
     <Button
         android:id="@+id/add_to_cart"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 
     <EditText
         android:id="@+id/item_quantity"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/add_to_cart"
+        android:layout_alignParentBottom="true"
+        android:hint="Quantity"/>
 
 </RelativeLayout>

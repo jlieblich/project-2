@@ -2,6 +2,7 @@ package com.jonathanlieblich.somesortofcommerceyousay;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.jonathanlieblich.somesortofcommerceyousay.ProductObjects.Product;
@@ -27,7 +28,15 @@ public class ShoppingCartViewAdapter extends RecyclerView.Adapter<ShoppingCartVi
 
     @Override
     public void onBindViewHolder(ShoppingCartViewHolder holder, int position) {
-
+        holder.mProductQuantity.setText("GET QUANTITY");
+        holder.mProductName.setText("GET NAME");
+        holder.mProductPrice.setText("GET PRICE");
+        holder.mRemoveProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //remove from cart
+            }
+        });
     }
 
     @Override

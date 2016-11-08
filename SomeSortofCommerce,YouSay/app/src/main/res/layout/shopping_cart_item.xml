@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="108dp">
 
     <ImageView
         android:id="@+id/product_in_cart_thumbnail"
-        android:layout_margin="16dp"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:background="#000"/>
 
     <TextView
         android:id="@+id/product_in_cart_name"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
+        android:paddingLeft="8dp"
         android:text="Product Name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/product_in_cart_thumbnail"/>
 
     <TextView
         android:id="@+id/product_in_cart_price"
+        android:paddingLeft="8dp"
+        android:layout_toRightOf="@id/product_in_cart_thumbnail"
+        android:layout_below="@id/product_in_cart_name"
+        android:text="$MM.MM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/product_in_cart_quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:hint="quantity"
+        android:textSize="18sp"/>
 
     <Button
         android:id="@+id/remove_from_cart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_backspace_black_24dp" />
 
 </RelativeLayout>

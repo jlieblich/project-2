@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jonathanlieblich.somesortofcommerceyousay.ProductObjects.Product;
 
@@ -34,8 +36,20 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        if(ProductStorageHelper.getInstance(getApplicationContext()).productById(intent.getIntExtra("ID", -1)).getId() == -1) {
+            Toast.makeText(this, "ID = -1", Toast.LENGTH_SHORT).show();
+        }
+
         final Product selectedItem = ProductStorageHelper
                 .getInstance(getApplicationContext()).productById(intent.getIntExtra("ID", -1));
+
+        if(selectedItem == null) {
+            finish();
+        }
+
+        if(selectedItem.getId() <1) {
+            Toast.makeText(this, "EMPTY ID", Toast.LENGTH_SHORT).show();
+        }
 
         itemName.setText(selectedItem.getName());
         itemDesc.setText(selectedItem.getDescription());

@@ -1,22 +1,23 @@
 package com.jonathanlieblich.somesortofcommerceyousay.ProductObjects;
 
+import com.jonathanlieblich.somesortofcommerceyousay.ProductViewAdapter;
+
 /**
  * Created by jonlieblich on 10/31/16.
  */
 
 public class Product {
-    private String mName, mDescription, mType;
-    private double mPrice;
+    private String mName, mDescription, mType, mPrice;
     private int mQuantity, mId;
 
-    public Product(String name, String description, double price) {
+    public Product(String name, String description, String price) {
         mName = name;
         mDescription = description;
         mPrice = price;
     }
 
     //Product constructor while in shopping cart
-    public Product(String name, int quantity, double price) {
+    public Product(String name, int quantity, String price) {
         mName = name;
         mQuantity = quantity;
         mPrice = price;
@@ -24,6 +25,10 @@ public class Product {
 
     public Product() {
 
+    }
+
+    public void setId(int id) {
+        mId = id;
     }
 
     public String getName() {
@@ -34,7 +39,7 @@ public class Product {
         return mDescription;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return mPrice;
     }
 
@@ -50,7 +55,7 @@ public class Product {
         mDescription = desc;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         mPrice = price;
     }
 
@@ -60,5 +65,13 @@ public class Product {
 
     public int getId() {
         return mId;
+    }
+
+    public void setQuantity(int quantity) {
+        mQuantity = quantity;
+    }
+
+    public int getQuantity() {
+        return mQuantity;
     }
 }
