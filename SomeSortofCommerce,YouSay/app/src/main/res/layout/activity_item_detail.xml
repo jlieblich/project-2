@@ -6,22 +6,32 @@
     android:layout_height="match_parent"
     tools:context="com.jonathanlieblich.somesortofcommerceyousay.ItemDetailActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/item_detail_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="#fff"
+            android:padding="8dp" />
+
+    </android.support.design.widget.AppBarLayout>
+
     <ImageView
         android:id="@+id/item_picture"
+        android:layout_below="@+id/item_detail_appbar"
         android:layout_width="match_parent"
         android:layout_height="144dp" />
-
-    <TextView
-        android:id="@+id/item_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_picture"/>
 
     <TextView
         android:id="@+id/item_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_name"/>
+        android:layout_below="@id/item_picture"/>
 
     <TextView
         android:id="@+id/item_price"

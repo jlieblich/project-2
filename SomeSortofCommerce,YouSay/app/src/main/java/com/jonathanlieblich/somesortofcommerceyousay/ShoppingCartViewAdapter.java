@@ -44,10 +44,9 @@ public class ShoppingCartViewAdapter extends RecyclerView.Adapter<ShoppingCartVi
                 mProductsInCart.remove(position);
                 ProductStorageHelper.getInstance(view.getContext()).removeFromCart(product.getName());
                 mListener.itemsAddedOrRemoved(price*product.getQuantity());
-                notifyDataSetChanged();
+                notifyItemRemoved(position);
             }
         });
-
     }
 
     @Override

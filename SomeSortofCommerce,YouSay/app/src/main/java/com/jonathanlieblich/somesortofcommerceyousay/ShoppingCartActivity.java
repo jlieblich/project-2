@@ -56,8 +56,9 @@ public class ShoppingCartActivity extends AppCompatActivity implements OnCartPri
                 int itemsPurchased = ProductStorageHelper.
                         getInstance(getApplicationContext()).checkoutCart();
                 if(itemsPurchased > 0) {
-                    Toast.makeText(ShoppingCartActivity.this,
-                            itemsPurchased+" items shipped!",Toast.LENGTH_SHORT).show();
+                    //checking if item should be plural (more than one item on the list)
+                    String shipNote = itemsPurchased > 1 ? itemsPurchased+" items shipped!" : "1 item shipped!";
+                    Toast.makeText(ShoppingCartActivity.this, shipNote, Toast.LENGTH_SHORT).show();
                     itemsInCart.clear();
                     itemsAddedOrRemoved(mPrice);
                     adapter.notifyDataSetChanged();
@@ -65,7 +66,6 @@ public class ShoppingCartActivity extends AppCompatActivity implements OnCartPri
                 } else {
                     Toast.makeText(ShoppingCartActivity.this, "Cart is empty", Toast.LENGTH_SHORT).show();
                 }
-                finish();
             }
         });
 
@@ -83,9 +83,13 @@ public class ShoppingCartActivity extends AppCompatActivity implements OnCartPri
         totalPrice.setText("$"+mPrice+" USD");
     }
 
+    //Listen for items being removed, return to main screen if cart is empty
     @Override
     public void itemsAddedOrRemoved(int change) {
         mPrice -= change;
         totalPrice.setText("$"+mPrice+" USD");
+        if(mPrice < 1) {
+            finish();
+        }
     }
 }
