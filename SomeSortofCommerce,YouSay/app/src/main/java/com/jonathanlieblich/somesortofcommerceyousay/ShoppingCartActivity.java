@@ -65,6 +65,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements OnCartPri
                 } else {
                     Toast.makeText(ShoppingCartActivity.this, "Cart is empty", Toast.LENGTH_SHORT).show();
                 }
+                finish();
             }
         });
 

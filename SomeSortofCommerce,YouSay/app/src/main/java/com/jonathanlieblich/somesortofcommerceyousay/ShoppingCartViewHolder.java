@@ -14,8 +14,7 @@ import android.widget.TextView;
 
 public class ShoppingCartViewHolder extends RecyclerView.ViewHolder {
     public ImageView mProductThumbnail;
-    public TextView mProductName, mProductPrice;
-    public EditText mProductQuantity;
+    public TextView mProductName, mProductPrice, mProductQuantity;
     public Button mRemoveProduct;
     public RelativeLayout mCartItem;
 
@@ -25,7 +24,7 @@ public class ShoppingCartViewHolder extends RecyclerView.ViewHolder {
         mProductThumbnail = (ImageView)itemView.findViewById(R.id.product_in_cart_thumbnail);
         mProductName = (TextView)itemView.findViewById(R.id.product_in_cart_name);
         mProductPrice = (TextView)itemView.findViewById(R.id.product_in_cart_price);
-        mProductQuantity = (EditText)itemView.findViewById(R.id.product_in_cart_quantity);
+        mProductQuantity = (TextView)itemView.findViewById(R.id.product_in_cart_quantity);
         mRemoveProduct = (Button)itemView.findViewById(R.id.remove_from_cart);
         mCartItem = (RelativeLayout)itemView.findViewById(R.id.cart_item_view);
     }

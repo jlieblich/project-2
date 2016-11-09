@@ -20,11 +20,19 @@ public class EmptyCartAlert extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Nothing to see here");
         builder.setPositiveButton("Back", new DialogInterface.OnClickListener() {
+            //Return to main screen onClickListener
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 getActivity().finish();
             }
         });
         return builder.create();
+    }
+
+    //Go back to main screen if user doesn't press positive button on dialog
+    @Override
+    public void onPause() {
+        getActivity().finish();
+        super.onPause();
     }
 }

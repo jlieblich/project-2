@@ -32,7 +32,7 @@ public class ShoppingCartViewAdapter extends RecyclerView.Adapter<ShoppingCartVi
     public void onBindViewHolder(ShoppingCartViewHolder holder, final int position) {
         final Product product = mProductsInCart.get(holder.getAdapterPosition());
 
-        holder.mProductQuantity.setHint(Integer.toString(product.getQuantity()));
+        holder.mProductQuantity.setText(Integer.toString(product.getQuantity()));
         holder.mProductName.setText(product.getName());
         holder.mProductPrice.setText(product.getPrice());
         holder.mRemoveProduct.setOnClickListener(new View.OnClickListener() {

@@ -6,36 +6,36 @@
 
     <ImageView
         android:id="@+id/product_in_cart_thumbnail"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:background="#000"/>
-
-    <TextView
-        android:id="@+id/product_in_cart_name"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="24dp"
-        android:paddingLeft="8dp"
-        android:text="Product Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/product_in_cart_thumbnail"/>
+        android:layout_width="108dp"
+        android:layout_height="108dp"
+        android:background="#e57373"/>
 
     <TextView
         android:id="@+id/product_in_cart_price"
         android:paddingLeft="8dp"
         android:layout_toRightOf="@id/product_in_cart_thumbnail"
-        android:layout_below="@id/product_in_cart_name"
         android:text="$MM.MM"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 
-    <EditText
+    <TextView
+        android:id="@+id/product_in_cart_name"
+        android:paddingLeft="8dp"
+        android:text="Product Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/product_in_cart_thumbnail"
+        android:layout_above="@id/product_in_cart_price"/>
+
+
+    <TextView
         android:id="@+id/product_in_cart_quantity"
-        android:layout_width="96dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:hint="quantity"
+        android:text="Quant"
         android:textSize="18sp"/>
 
     <Button
@@ -44,6 +44,7 @@
         android:layout_height="48dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/ic_backspace_black_24dp" />
+        android:background="@drawable/ic_delete_black_24dp"
+        android:backgroundTint="#3949ab"/>
 
 </RelativeLayout>
