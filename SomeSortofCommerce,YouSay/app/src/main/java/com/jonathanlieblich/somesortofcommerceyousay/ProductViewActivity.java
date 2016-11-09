@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.jonathanlieblich.somesortofcommerceyousay.ProductObjects.Product;
 import com.jonathanlieblich.somesortofcommerceyousay.Setup.DBAssetHelper;
@@ -83,10 +84,12 @@ public class ProductViewActivity extends AppCompatActivity {
         if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             List<Product> namesFound = ProductStorageHelper.getInstance(this).searchByName(query);
+            if(namesFound.size() < 1) {
+                Toast.makeText(this, "No items matched your search", Toast.LENGTH_LONG).show();
+                namesFound = ProductStorageHelper.getInstance(this).getProductList();
+            }
             mainRecycler.setAdapter(new ProductViewAdapter(namesFound));
             mAdapter.notifyDataSetChanged();
-//            List<Product> byCategory = ProductStorageHelper.getInstance(this).searchCategory(query);
-
         }
     }
 }
