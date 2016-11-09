@@ -26,6 +26,8 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         ImageView productImage = (ImageView)findViewById(R.id.item_picture);
 
+        productImage.setImageResource(R.color.colorAccent);
+
         TextView itemName = (TextView)findViewById(R.id.item_name);
         TextView itemDesc = (TextView)findViewById(R.id.item_description);
         TextView itemPrice = (TextView)findViewById(R.id.item_price);
@@ -36,20 +38,9 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if(ProductStorageHelper.getInstance(getApplicationContext()).productById(intent.getIntExtra("ID", -1)).getId() == -1) {
-            Toast.makeText(this, "ID = -1", Toast.LENGTH_SHORT).show();
-        }
-
         final Product selectedItem = ProductStorageHelper
                 .getInstance(getApplicationContext()).productById(intent.getIntExtra("ID", -1));
 
-        if(selectedItem == null) {
-            finish();
-        }
-
-        if(selectedItem.getId() <1) {
-            Toast.makeText(this, "EMPTY ID", Toast.LENGTH_SHORT).show();
-        }
 
         itemName.setText(selectedItem.getName());
         itemDesc.setText(selectedItem.getDescription());
@@ -62,7 +53,9 @@ public class ItemDetailActivity extends AppCompatActivity {
                     itemQuantity.setError("Quantity cannot be blank");
                 } else {
                     ProductStorageHelper.getInstance(getApplicationContext())
-                            .addToCart(selectedItem.getId());
+                            .addToCart(selectedItem.getId(), Integer.parseInt(itemQuantity.getText().toString()));
+                    Toast.makeText(ItemDetailActivity.this, itemQuantity.getText()+" "
+                            +selectedItem.getName()+" added to cart!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -32,6 +32,7 @@
 
     <Button
         android:id="@+id/add_to_cart"
+        android:text="ADD TO CART"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

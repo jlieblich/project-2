@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -16,6 +17,7 @@ public class ShoppingCartViewHolder extends RecyclerView.ViewHolder {
     public TextView mProductName, mProductPrice;
     public EditText mProductQuantity;
     public Button mRemoveProduct;
+    public RelativeLayout mCartItem;
 
     public ShoppingCartViewHolder(View itemView) {
         super(itemView);
@@ -25,5 +27,6 @@ public class ShoppingCartViewHolder extends RecyclerView.ViewHolder {
         mProductPrice = (TextView)itemView.findViewById(R.id.product_in_cart_price);
         mProductQuantity = (EditText)itemView.findViewById(R.id.product_in_cart_quantity);
         mRemoveProduct = (Button)itemView.findViewById(R.id.remove_from_cart);
+        mCartItem = (RelativeLayout)itemView.findViewById(R.id.cart_item_view);
     }
 }

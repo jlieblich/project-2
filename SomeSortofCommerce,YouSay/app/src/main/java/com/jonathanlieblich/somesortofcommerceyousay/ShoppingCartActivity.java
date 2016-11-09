@@ -1,5 +1,6 @@
 package com.jonathanlieblich.somesortofcommerceyousay;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -14,28 +15,27 @@ import android.widget.Toast;
 
 import com.jonathanlieblich.somesortofcommerceyousay.ProductObjects.Product;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
-public class ShoppingCartActivity extends AppCompatActivity {
+public class ShoppingCartActivity extends AppCompatActivity implements OnCartPriceChange{
     private List<Product> itemsInCart;
+    public TextView totalPrice;
+    public int mPrice = 0;
+    ShoppingCartViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
 
-//        if(ProductStorageHelper.getInstance(getApplicationContext()).cartItems().size() == 0) {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-//            builder.setMessage("Shopping Cart is Empty!");
-//            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    finish();
-//                }
-//            });
-//            AlertDialog dialog = builder.create();
-//            dialog.show();
-//        }
+        if(ProductStorageHelper.getInstance(getApplicationContext()).cartItems().size() == 0) {
+            EmptyCartAlert alert = new EmptyCartAlert();
+            alert.show(getSupportFragmentManager(), null);
+        }
+
+        totalPrice = (TextView)findViewById(R.id.product_total_price);
 
         itemsInCart = ProductStorageHelper.getInstance(getApplicationContext()).cartItems();
 
@@ -44,7 +44,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager
                 (getApplicationContext(), LinearLayoutManager.VERTICAL, false);
 
-        ShoppingCartViewAdapter adapter = new ShoppingCartViewAdapter(itemsInCart);
+        adapter = new ShoppingCartViewAdapter(itemsInCart, this);
 
         cartRecycler.setLayoutManager(layoutManager);
         cartRecycler.setAdapter(adapter);
@@ -58,14 +58,18 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 if(itemsPurchased > 0) {
                     Toast.makeText(ShoppingCartActivity.this,
                             itemsPurchased+" items shipped!",Toast.LENGTH_SHORT).show();
+                    itemsInCart.clear();
+                    itemsAddedOrRemoved(mPrice);
+                    adapter.notifyDataSetChanged();
+
                 } else {
                     Toast.makeText(ShoppingCartActivity.this, "Cart is empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        TextView totalPrice = (TextView)findViewById(R.id.product_total_price);
-        int price = 0;
+        //Add price of all items in cart to display total
+        //All prices are Strings in format "$##### USD" or "$########.## USD"
         for(int i=0;i<itemsInCart.size();i++) {
             Product tempProduct = itemsInCart.get(i);
             String priceString = tempProduct.getPrice();
@@ -73,8 +77,14 @@ public class ShoppingCartActivity extends AppCompatActivity {
             priceString = priceString.substring(priceString.indexOf('$')+1,
                     priceString.indexOf(' '));
             temp *= Integer.parseInt(priceString);
-            price += temp;
+            mPrice += temp;
         }
-        totalPrice.setText("$"+price+" USD");
+        totalPrice.setText("$"+mPrice+" USD");
+    }
+
+    @Override
+    public void itemsAddedOrRemoved(int change) {
+        mPrice -= change;
+        totalPrice.setText("$"+mPrice+" USD");
     }
 }

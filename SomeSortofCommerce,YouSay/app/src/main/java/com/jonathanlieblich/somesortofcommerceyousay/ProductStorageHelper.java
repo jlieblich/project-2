@@ -124,7 +124,7 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
     public List<Product> cartItems() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(CART_TABLE,
-                new String[]{COL_NAME, COL_PRICE, COL_QUANTITY},
+                new String[]{COL_NAME, COL_ID, COL_PRICE, COL_QUANTITY},
                 null,
                 null,
                 null,
@@ -136,7 +136,9 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
             while(!cursor.isAfterLast()) {
                 Product product = new Product();
                 product.setName(cursor.getString(cursor.getColumnIndex(COL_NAME)));
-                cursor.getInt(cursor.getColumnIndex(COL_QUANTITY));
+                product.setQuantity(cursor.getInt(cursor.getColumnIndex(COL_QUANTITY)));
+                product.setPrice(cursor.getString(cursor.getColumnIndex(COL_PRICE)));
+                cart.add(product);
                 cursor.moveToNext();
             }
         }
@@ -144,11 +146,11 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
         return cart;
     }
 
-    public long addToCart(int itemId) {
+    public long addToCart(int itemId, int quantity) {
         Product selected = productById(itemId);
         ContentValues values = new ContentValues();
         values.put(COL_NAME, selected.getName());
-        values.put(COL_QUANTITY, selected.getQuantity());
+        values.put(COL_QUANTITY, quantity);
         values.put(COL_PRICE, selected.getPrice());
         SQLiteDatabase db = getWritableDatabase();
         long insertion = db.insert(CART_TABLE, null, values);
@@ -160,31 +162,8 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(PRODUCT_TABLE,
                 null,
-                COL_NAME+" LIKE ?",
-                new String[]{"%"+query+"%"},
-                null,
-                null,
-                null);
-        List<Product> result = new ArrayList<>();
-        if(cursor.moveToFirst()) {
-            while(!cursor.isAfterLast()) {
-                Product product = new Product();
-                product.setName(cursor.getString(cursor.getColumnIndex(COL_NAME)));
-                product.setPrice(cursor.getString(cursor.getColumnIndex(COL_PRICE)));
-                result.add(product);
-                cursor.moveToNext();
-            }
-        }
-        cursor.close();
-        return result;
-    }
-
-    public List<Product> searchCategory(String query) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(PRODUCT_TABLE,
-                null,
-                COL_CATEGORY,
-                new String[]{"%"+query+"%"},
+                COL_NAME+" LIKE ? OR "+COL_CATEGORY+" LIKE ?",
+                new String[]{"%"+query+"%","%"+query+"%"},
                 null,
                 null,
                 null);
@@ -208,5 +187,11 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
         int deleted = db.delete(CART_TABLE, "1", null);
         db.close();
         return deleted;
+    }
+
+    public void removeFromCart(String name) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(CART_TABLE, COL_NAME+" = ?", new String[]{name});
+        db.close();
     }
 }

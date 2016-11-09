@@ -10,22 +10,7 @@ public class Product {
     private String mName, mDescription, mType, mPrice;
     private int mQuantity, mId;
 
-    public Product(String name, String description, String price) {
-        mName = name;
-        mDescription = description;
-        mPrice = price;
-    }
-
-    //Product constructor while in shopping cart
-    public Product(String name, int quantity, String price) {
-        mName = name;
-        mQuantity = quantity;
-        mPrice = price;
-    }
-
-    public Product() {
-
-    }
+    public Product() {}
 
     public void setId(int id) {
         mId = id;

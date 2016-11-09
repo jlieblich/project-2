@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:id="@+id/single_product_item">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:id="@+id/single_product_item"
+    android:background="#E0E0E0"
+    android:elevation="6dp">
 
     <ImageView
+        android:background="#EEEEEE"
         android:id="@+id/product_thumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
         android:layout_alignParentLeft="true"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher" />
 
-    <TextView
-        android:id="@+id/product_name"
-        android:text="NAME"
+    <RelativeLayout
+        android:padding="16dp"
+        android:layout_below="@id/product_thumbnail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/product_thumbnail"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/product_price"
-        android:text="$PRICE.PP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="24sp"/>
+        <TextView
+            android:id="@+id/product_name"
+            android:text="NAME"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/product_price"
+            android:text="$PRICE.PP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="24sp"/>
 
+    </RelativeLayout>
 
 </RelativeLayout>

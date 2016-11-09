@@ -13,11 +13,13 @@ import java.util.List;
  * Created by jonlieblich on 11/6/16.
  */
 
-public class ShoppingCartViewAdapter extends RecyclerView.Adapter<ShoppingCartViewHolder> {
-    List<Product> mProductsInCart;
+public class ShoppingCartViewAdapter extends RecyclerView.Adapter<ShoppingCartViewHolder>{
+    private List<Product> mProductsInCart;
+    OnCartPriceChange mListener;
 
-    public ShoppingCartViewAdapter(List<Product> products) {
+    public ShoppingCartViewAdapter(List<Product> products, OnCartPriceChange priceChangeListener) {
         mProductsInCart = products;
+        mListener = priceChangeListener;
     }
 
     @Override
@@ -27,16 +29,25 @@ public class ShoppingCartViewAdapter extends RecyclerView.Adapter<ShoppingCartVi
     }
 
     @Override
-    public void onBindViewHolder(ShoppingCartViewHolder holder, int position) {
-        holder.mProductQuantity.setText("GET QUANTITY");
-        holder.mProductName.setText("GET NAME");
-        holder.mProductPrice.setText("GET PRICE");
+    public void onBindViewHolder(ShoppingCartViewHolder holder, final int position) {
+        final Product product = mProductsInCart.get(holder.getAdapterPosition());
+
+        holder.mProductQuantity.setHint(Integer.toString(product.getQuantity()));
+        holder.mProductName.setText(product.getName());
+        holder.mProductPrice.setText(product.getPrice());
         holder.mRemoveProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //remove from cart
+                String numberPrice = product.getPrice();
+                numberPrice = numberPrice.substring(numberPrice.indexOf('$')+1, numberPrice.indexOf(' '));
+                int price = Integer.parseInt(numberPrice);
+                mProductsInCart.remove(position);
+                ProductStorageHelper.getInstance(view.getContext()).removeFromCart(product.getName());
+                mListener.itemsAddedOrRemoved(price*product.getQuantity());
+                notifyDataSetChanged();
             }
         });
+
     }
 
     @Override
