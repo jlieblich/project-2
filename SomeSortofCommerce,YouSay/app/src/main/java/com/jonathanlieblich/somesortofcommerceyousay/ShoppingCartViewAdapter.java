@@ -34,7 +34,8 @@ public class ShoppingCartViewAdapter extends RecyclerView.Adapter<ShoppingCartVi
 
         holder.mProductQuantity.setText(Integer.toString(product.getQuantity()));
         holder.mProductName.setText(product.getName());
-        holder.mProductPrice.setText(product.getPrice());
+        String simplePriceText = product.getPrice().substring(1, product.getPrice().indexOf('D'))+"D";
+        holder.mProductPrice.setText(simplePriceText);
         holder.mRemoveProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

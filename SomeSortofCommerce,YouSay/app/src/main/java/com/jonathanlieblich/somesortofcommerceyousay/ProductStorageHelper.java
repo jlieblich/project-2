@@ -71,7 +71,7 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    //Return list of all products in database
+    //Return list of all products in prduct table
     public List<Product> getProductList() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(PRODUCT_TABLE,
@@ -147,6 +147,9 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
     }
 
     public long addToCart(int itemId, int quantity) {
+        if(isInCart(itemId, quantity)) {
+            return quantity;
+        }
         Product selected = productById(itemId);
         ContentValues values = new ContentValues();
         values.put(COL_NAME, selected.getName());
@@ -193,5 +196,29 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(CART_TABLE, COL_ID+" = ?", new String[]{id+""});
         db.close();
+    }
+
+    //Called when adding an item to cart to check if this type of item already exists
+    public boolean isInCart(int id, int quantity) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.query(CART_TABLE,
+                null,
+                COL_ID+" = ?",
+                new String[]{id+""},
+                null,
+                null,
+                null);
+        if(cursor.moveToFirst()) {
+            ContentValues values = new ContentValues();
+            int updatedQuantity = quantity + cursor.getInt(cursor.getColumnIndex(COL_QUANTITY));
+            values.put(COL_QUANTITY, updatedQuantity);
+            db.update(CART_TABLE, values, COL_ID+" = ?",new String[]{id+""});
+            cursor.close();
+            db.close();
+            return true;
+        }
+        cursor.close();
+        db.close();
+        return false;
     }
 }

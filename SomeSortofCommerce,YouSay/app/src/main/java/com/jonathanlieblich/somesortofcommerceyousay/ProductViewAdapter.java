@@ -31,7 +31,9 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewHolder> 
     @Override
     public void onBindViewHolder(final ProductViewHolder holder, final int position) {
         holder.mName.setText(mProductList.get(position).getName());
-        holder.mPrice.setText(mProductList.get(position).getPrice());
+        String simplplePrice = mProductList.get(position).getPrice()
+                .substring(1, mProductList.get(position).getPrice().indexOf('D'))+"D";
+        holder.mPrice.setText(simplplePrice);
 
         View.OnClickListener onClick = new View.OnClickListener() {
             @Override
