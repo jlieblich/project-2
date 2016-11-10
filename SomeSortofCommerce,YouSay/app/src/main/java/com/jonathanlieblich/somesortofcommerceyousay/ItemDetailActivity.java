@@ -24,7 +24,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
 
-        // TODO: (optional) create fullscreen view when image is pressed
         ImageView productImage = (ImageView)findViewById(R.id.item_picture);
 
         TextView itemName = (TextView)findViewById(R.id.item_name);
@@ -58,8 +57,6 @@ public class ItemDetailActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: Call new method if the item already exists in the cart so only the quantity is changed
-        // TODO: (optional) change EditText to AlertDialog to select item quantity
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
