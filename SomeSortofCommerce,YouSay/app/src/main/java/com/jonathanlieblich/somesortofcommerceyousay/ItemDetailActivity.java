@@ -27,8 +27,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         // TODO: (optional) create fullscreen view when image is pressed
         ImageView productImage = (ImageView)findViewById(R.id.item_picture);
 
-        productImage.setImageResource(R.color.colorAccent);
-
         TextView itemName = (TextView)findViewById(R.id.item_name);
         TextView itemDesc = (TextView)findViewById(R.id.item_description);
         TextView itemPrice = (TextView)findViewById(R.id.item_price);
@@ -39,6 +37,11 @@ public class ItemDetailActivity extends AppCompatActivity {
         final EditText itemQuantity = (EditText)findViewById(R.id.item_quantity);
 
         Intent intent = getIntent();
+        int pic = intent.getIntExtra("PIC", -1304854);
+
+        if(pic != -1304854) {
+            productImage.setImageResource(pic);
+        }
 
         final Product selectedItem = ProductStorageHelper
                 .getInstance(getApplicationContext()).productById(intent.getIntExtra("ID", -1));

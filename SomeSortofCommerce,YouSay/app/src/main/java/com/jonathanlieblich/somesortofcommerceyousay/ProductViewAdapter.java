@@ -46,7 +46,7 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewHolder> 
                 .substring(0,sourceImageC)+"_main" : product.getName().substring(0, sourceImageS)+"_main";
         sourceImage = sourceImage.toLowerCase();
 
-        int thumbnail = holder.mThumbnail.getContext().getResources()
+        final int thumbnail = holder.mThumbnail.getContext().getResources()
                 .getIdentifier(sourceImage, "drawable", holder.mThumbnail.getContext().getPackageName());
 
         holder.mThumbnail.setImageResource(thumbnail);
@@ -61,6 +61,7 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewHolder> 
                     case R.id.single_product_item:
                         Intent intent = new Intent(view.getContext(), ItemDetailActivity.class);
                         intent.putExtra("ID", position+1);
+                        intent.putExtra("PIC", thumbnail);
                         holder.mProductItem.getContext().startActivity(intent);
                         break;
                 }
