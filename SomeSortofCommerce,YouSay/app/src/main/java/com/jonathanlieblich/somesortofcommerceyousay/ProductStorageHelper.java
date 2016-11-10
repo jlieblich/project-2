@@ -189,9 +189,9 @@ public class ProductStorageHelper extends SQLiteOpenHelper {
         return deleted;
     }
 
-    public void removeFromCart(String name) {
+    public void removeFromCart(int id) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(CART_TABLE, COL_NAME+" = ?", new String[]{name});
+        db.delete(CART_TABLE, COL_ID+" = ?", new String[]{id+""});
         db.close();
     }
 }

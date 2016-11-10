@@ -42,7 +42,7 @@ public class ShoppingCartViewAdapter extends RecyclerView.Adapter<ShoppingCartVi
                 numberPrice = numberPrice.substring(numberPrice.indexOf('$')+1, numberPrice.indexOf(' '));
                 int price = Integer.parseInt(numberPrice);
                 mProductsInCart.remove(position);
-                ProductStorageHelper.getInstance(view.getContext()).removeFromCart(product.getName());
+                ProductStorageHelper.getInstance(view.getContext()).removeFromCart(position+1);
                 mListener.itemsAddedOrRemoved(price*product.getQuantity());
                 notifyItemRemoved(position);
             }
