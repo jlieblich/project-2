@@ -40,7 +40,7 @@
         android:id="@+id/item_picture"
         android:layout_below="@+id/item_detail_appbar"
         android:layout_width="match_parent"
-        android:layout_height="144dp" />
+        android:layout_height="168dp" />
 
     <TextView
         android:id="@+id/item_description"
@@ -57,9 +57,9 @@
 
     <Button
         android:id="@+id/add_to_cart"
-        android:text="ADD TO CART"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/ic_control_point_black_24dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
 

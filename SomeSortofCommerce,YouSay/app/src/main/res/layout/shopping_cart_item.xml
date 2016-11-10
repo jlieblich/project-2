@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="108dp"
     android:layout_marginBottom="1dp"
-    android:background="#e0e0e0"
+    android:background="#fff"
     android:id="@+id/cart_item_view"
     android:elevation="6dp">
 
@@ -11,7 +11,7 @@
         android:id="@+id/product_in_cart_thumbnail"
         android:layout_width="108dp"
         android:layout_height="108dp"
-        android:background="#e57373"/>
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/product_in_cart_price"
@@ -47,8 +47,7 @@
         android:layout_height="48dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/ic_delete_black_24dp"
-        android:backgroundTint="#3949ab"
+        android:background="@drawable/ic_clear_black_24dp"
         android:elevation="6dp"/>
 
 </RelativeLayout>

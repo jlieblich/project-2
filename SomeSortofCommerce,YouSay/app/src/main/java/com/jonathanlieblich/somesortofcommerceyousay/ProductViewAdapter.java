@@ -30,10 +30,26 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewHolder> 
 
     @Override
     public void onBindViewHolder(final ProductViewHolder holder, final int position) {
+        Product product = mProductList.get(position);
+
         holder.mName.setText(mProductList.get(position).getName());
         String simplplePrice = mProductList.get(position).getPrice()
                 .substring(1, mProductList.get(position).getPrice().indexOf('D'))+"D";
         holder.mPrice.setText(simplplePrice);
+
+        int sourceImageS = product.getName().indexOf(' ');
+        int sourceImageC = product.getName().indexOf(',');
+        if(sourceImageC < 0) {
+            sourceImageC = sourceImageS+1;
+        }
+        String sourceImage = sourceImageS > sourceImageC ? product.getName()
+                .substring(0,sourceImageC)+"_main" : product.getName().substring(0, sourceImageS)+"_main";
+        sourceImage = sourceImage.toLowerCase();
+
+        int thumbnail = holder.mThumbnail.getContext().getResources()
+                .getIdentifier(sourceImage, "drawable", holder.mThumbnail.getContext().getPackageName());
+
+        holder.mThumbnail.setImageResource(thumbnail);
 
         View.OnClickListener onClick = new View.OnClickListener() {
             @Override
