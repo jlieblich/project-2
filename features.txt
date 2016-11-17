@@ -1,0 +1,31 @@
+Main menu/product list:
+User can view products and scroll to view more
+  As a user, I can see all of the available products when I open the app
+User can click on product to see more info in a new activity
+  As a user, I can click on any product to get more information
+
+Product search:
+User can search for products by full or partial name
+  As a user, I can find a specific product by typing its name in
+User can search for products by category/keyword
+  As a user, I can use keywords to find relevant products
+
+Product detail
+User can view full description of an individual product
+  As a user, I can see the full description of each product individually
+User can select quantity of product before adding to cart
+  As a user, I can enter the quantity of an item I want by typing it in
+User can add any number of a product to cart
+  As a user, I can add the chosen quantity to my cart by pressing a button
+Message displayed when items added to cart
+  As a user, I can see a message to confirm what I just added to my cart
+
+Shopping cart:
+All items in cart are listed with quantity
+  As a user, I can see how many of each item I have in my cart
+User can remove a single type of item by pressing button
+  As a user, I can take an item out of my cart if I decide I don't want it before checking out
+User can "check out" and clear the cart with floating action button
+  As a user, I can check out my whole cart to purchase the items
+When the cart is empty, the activity finishes
+  As a user, I can return to the main screen to continue shopping once my cart is empty
