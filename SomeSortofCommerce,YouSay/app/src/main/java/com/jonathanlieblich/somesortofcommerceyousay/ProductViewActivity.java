@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -39,12 +40,8 @@ public class ProductViewActivity extends AppCompatActivity {
         DBAssetHelper dbSetup = new DBAssetHelper(ProductViewActivity.this);
         dbSetup.getReadableDatabase();
 
-        mAdapter = new ProductViewAdapter(ProductStorageHelper
-                .getInstance(getApplicationContext()).getProductList());
-        mainRecycler = (RecyclerView)findViewById(R.id.product_recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mainRecycler.setLayoutManager(layoutManager);
-        mainRecycler.setAdapter(mAdapter);
+        AsyncProductViewTask task = new AsyncProductViewTask();
+        task.execute();
 
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
 
@@ -60,6 +57,25 @@ public class ProductViewActivity extends AppCompatActivity {
             }
         };
         fab.setOnClickListener(onClickListener);
+    }
+
+    private class AsyncProductViewTask extends AsyncTask<Void, Integer, List<Product>> {
+
+        @Override
+        protected List<Product> doInBackground(Void... voids) {
+            return ProductStorageHelper.getInstance(getApplicationContext()).getProductList();
+        }
+
+        @Override
+        protected void onPostExecute(List<Product> products) {
+            super.onPostExecute(products);
+            mAdapter = new ProductViewAdapter(products);
+            mainRecycler = (RecyclerView)findViewById(R.id.product_recycler_view);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),
+                    LinearLayoutManager.HORIZONTAL, false);
+            mainRecycler.setLayoutManager(layoutManager);
+            mainRecycler.setAdapter(mAdapter);
+        }
     }
 
     @Override
@@ -83,12 +99,27 @@ public class ProductViewActivity extends AppCompatActivity {
     private void handleIntent(Intent intent) {
         if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            List<Product> namesFound = ProductStorageHelper.getInstance(this).searchByName(query);
-            if(namesFound.size() < 1) {
-                Toast.makeText(this, "No items matched your search", Toast.LENGTH_LONG).show();
-                namesFound = ProductStorageHelper.getInstance(this).getProductList();
+
+            AsyncSearchTask task = new AsyncSearchTask();
+            task.execute(query);
+        }
+    }
+
+    private class AsyncSearchTask extends AsyncTask<String, Void, List<Product>> {
+
+        @Override
+        protected List<Product> doInBackground(String... strings) {
+            return ProductStorageHelper.getInstance(getApplicationContext()).searchByName(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(List<Product> products) {
+            super.onPostExecute(products);
+            if(products.size() < 1) {
+                Toast.makeText(ProductViewActivity.this, "No items matched your search", Toast.LENGTH_SHORT).show();
+                products = ProductStorageHelper.getInstance(getApplicationContext()).getProductList();
             }
-            mainRecycler.setAdapter(new ProductViewAdapter(namesFound));
+            mainRecycler.setAdapter(new ProductViewAdapter(products));
             mAdapter.notifyDataSetChanged();
         }
     }
